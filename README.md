@@ -1,5 +1,5 @@
 # Flickster
-**Flickster** shows the latest movies currently playing in theaters. The app utilizes the Movie Database API to display images and basic information about these movies to the user.
+**Flickster** shows the latest movies currently playing in theaters. The app utilizes the Movie Database API to display images and basic information about these movies to the user. Video trailers can also be played using YoutubePlayerView.
 
 Time spent: **15** hours spent in total
 
@@ -49,7 +49,8 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Challenges encountered while building the app:
+- Setting up Google Play Store and installing Youtube app in emulator in order to use YoutubePlayerView API.
 
 ## Open-source libraries used
 
