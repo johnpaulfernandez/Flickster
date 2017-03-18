@@ -33,16 +33,30 @@
         android:textColor="@android:color/white"
         android:textStyle="bold" />
 
+    <RatingBar
+        android:id="@+id/rbRating"
+        style="@android:style/Widget.Holo.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:background="@android:color/black"
+        android:isIndicator="true"
+        android:max="5"
+        android:stepSize="0.01"
+        android:layout_alignLeft="@+id/tvTitle"
+        android:layout_alignStart="@+id/tvTitle"
+        android:layout_below="@+id/tvTitle" />
+
     <TextView
         android:id="@+id/tvOverview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvTitle"
-        android:layout_alignStart="@+id/tvTitle"
-        android:layout_below="@+id/tvTitle"
         android:layout_marginTop="12dp"
         android:text="TextView"
         android:textColor="@android:color/darker_gray"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:layout_below="@+id/rbRating"
+        android:layout_alignLeft="@+id/rbRating"
+        android:layout_alignStart="@+id/rbRating" />
 
 </RelativeLayout>

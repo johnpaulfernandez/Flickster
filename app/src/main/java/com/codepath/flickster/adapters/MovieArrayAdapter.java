@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.codepath.flickster.R;
@@ -35,6 +36,7 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         ImageView ivImage;
         TextView tvTitle;
         TextView tvOverview;
+        RatingBar rbRating;
     }
     public MovieArrayAdapter(Context context, ArrayList<Movie> movies) {
         super(context, 0, movies);
@@ -82,17 +84,11 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
                 // Find the image view
                 viewHolderPopularMovie.ivImage = (ImageView) convertView.findViewById(ivImage);
 
-                int orientation = getContext().getResources().getConfiguration().orientation;
-
-                if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    // Lookup view for data population
-                    viewHolderPopularMovie.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
-                    viewHolderPopularMovie.tvOverview = (TextView) convertView.findViewById(R.id.tvOverview);
-                }
-
-
                 // Cache the viewHolder object inside the fresh view
                 convertView.setTag(viewHolderPopularMovie);
+
+
+
 
                 // Clear out the image from convertView
                 viewHolderPopularMovie.ivImage.setImageResource(0);
@@ -101,14 +97,20 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
                 viewHolderPopularMovie = (ViewHolder) convertView.getTag();
             }
 
+            int orientation = getContext().getResources().getConfiguration().orientation;
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                // Lookup view for data population
+                viewHolderPopularMovie.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
+                viewHolderPopularMovie.tvOverview = (TextView) convertView.findViewById(R.id.tvOverview);
+                viewHolderPopularMovie.rbRating = (RatingBar) convertView.findViewById(R.id.rbRating);
 
                 // Populate the data from the data object via the viewHolder object
                 // into the template view.
                 viewHolderPopularMovie.tvTitle.setText(movie.originalTitle);
                 viewHolderPopularMovie.tvOverview.setText(movie.overview);
-            }
+                viewHolderPopularMovie.rbRating.setRating(movie.getVoteAverage() / 2);
 
+            }
 
             // Load the Image from URL
             Picasso.with(getContext()).load(movie.getBackdropPath()).placeholder(R.mipmap.movie_image_placeholder)
@@ -159,9 +161,11 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
 
     // Given the item type, responsible for returning the correct inflated XML layout file
     private View getInflatedLayoutForType(int type) {
-        if (type == Movie.MoviePopularity.POPULAR_MOVIE.ordinal()) {
+        int orientation = getContext().getResources().getConfiguration().orientation;
+
+        if (type == Movie.MoviePopularity.POPULAR_MOVIE.ordinal() && orientation == Configuration.ORIENTATION_PORTRAIT) {
             return LayoutInflater.from(getContext()).inflate(R.layout.item_popular_movie, null);
-        } else if (type == Movie.MoviePopularity.NOT_POPULAR_MOVIE.ordinal()) {
+        } else if (type == Movie.MoviePopularity.NOT_POPULAR_MOVIE.ordinal() || orientation == Configuration.ORIENTATION_LANDSCAPE) {
             return LayoutInflater.from(getContext()).inflate(R.layout.item_movie, null);
         } else {
             return null;
